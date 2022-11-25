@@ -1,12 +1,12 @@
 import React from "react";
 import HomeBanner from "../HomeBanner/HomeBanner";
+import Infosection from "../Infosection/Infosection";
 
 const Home = () => {
   return (
     <div>
       <HomeBanner></HomeBanner>
-
-      <h1 className='text-5xl text-accent'> HEY ALL MY </h1>
+      <Infosection></Infosection>
     </div>
   );
 };
