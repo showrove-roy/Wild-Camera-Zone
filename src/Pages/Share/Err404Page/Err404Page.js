@@ -7,11 +7,11 @@ const Err404Page = () => {
   return (
     <div>
       <NavBar></NavBar>
-      <div className='w-1/3 mx-auto'>
+      <div className='flex justify-center w-2/3 mx-auto items-center my-32 md:my-20'>
         <Player
           autoplay
           loop
-          src='https://assets1.lottiefiles.com/packages/lf20_jitmvb71.json'></Player>
+          src='https://lottie.host/c1bac47d-d02d-4fec-b47f-6f13189e64cf/wn33WciJXn.json'></Player>
       </div>
       <Footer></Footer>
     </div>

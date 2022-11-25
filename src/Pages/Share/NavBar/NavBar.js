@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../../assets/logo1.png";
 
 const NavBar = () => {
   const user = true;
@@ -8,20 +9,19 @@ const NavBar = () => {
       <li className='font-semibold'>
         <Link to='/'>Home</Link>
       </li>
-      <li className='font-semibold'>
-        <Link to='/appointment'>Appointment</Link>
-      </li>
-      <li className='font-semibold'>
-        <Link to='/reviews'>Reviews</Link>
-      </li>
-      <li className='font-semibold'>
-        <Link to='/contact'>Contact Us</Link>
-      </li>
       {user?.uid && (
-        <li className='font-semibold'>
-          <Link to='/dashboard'>Dashboard</Link>
-        </li>
+        <>
+          <li className='font-semibold'>
+            <Link to='/product/all'>All Products</Link>
+          </li>
+          <li className='font-semibold'>
+            <Link to='/dashboard'>Dashboard</Link>
+          </li>
+        </>
       )}
+      <li className='font-semibold'>
+        <Link to='/blogs'>Blogs</Link>
+      </li>
       <li className='font-semibold'>
         {user?.uid ? (
           <button onClick={""}>Logout</button>
@@ -32,7 +32,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className='navbar bg-base-200 justify-between'>
+    <div className='navbar bg-base-200 sticky top-0 justify-between z-50 px-5'>
       <div className=''>
         {"" && (
           <label
@@ -56,7 +56,7 @@ const NavBar = () => {
         )}
 
         <Link to='/'>
-          <img src={"logo"} alt='' className='w-40 cursor-pointer' />
+          <img src={logo} alt='' className='h-10 cursor-pointer' />
         </Link>
       </div>
       <div className='dropdown'>
