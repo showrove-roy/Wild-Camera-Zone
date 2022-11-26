@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Contexts/AuthProvider";
 
 const SignUp = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   // error message storage
   const [signUPError, setSignUPError] = useState("");
+
+  //get Authentication function
+  const { createNewUser, updateUserProfile, googleLogIn, setLoading } =
+    useAuth();
 
   // get From-hook function
   const {
@@ -14,10 +23,55 @@ const SignUp = () => {
     reset,
   } = useForm();
 
-  // sign up handel
+  // SignUP From submit or Create user handel
   const handelSignUP = (data) => {
-    console.log(data);
+    setSignUPError("");
+    createNewUser(data.email, data.password)
+      .then((result) => {
+        if (result?.user?.uid) {
+          userUPDATE(data.name);
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error?.message?.split("/")[1];
+        setSignUPError(errorMessage?.split(")")[0]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
+
+  /// Update user firebase
+  const userUPDATE = (name) => {
+    const userDetails = { displayName: name };
+    updateUserProfile(userDetails)
+      .then(() => {
+        reset();
+        toast.success("Successfully Create Account");
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error?.message?.split("/")[1];
+        setSignUPError(errorMessage?.split(")")[0]);
+      });
+  };
+
+  // Google login handel
+  const handelGoogleLogin = () => {
+    googleLogIn()
+      .then((result) => {
+        if (result?.user?.uid) {
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error?.message?.split("/")[1];
+        setSignUPError(errorMessage?.split(")")[0]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div className='md:my-5 my-3 mx-2'>
       <div className='card w-full max-w-md mx-auto shadow-md rounded-xl'>
@@ -130,7 +184,9 @@ const SignUp = () => {
           </div>
 
           <div className='divider'>OR</div>
-          <span className='btn btn-outline btn-accent'>
+          <span
+            onClick={handelGoogleLogin}
+            className='btn btn-outline btn-accent'>
             CONTINUE WITH GOOGLE
           </span>
         </form>

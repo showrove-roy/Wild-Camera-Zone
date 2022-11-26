@@ -12,7 +12,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
 
   //get Authentication function
-  const { logIN, googleLogIn, setLoading, createJWT } = useAuth();
+  const { logIN, googleLogIn, setLoading } = useAuth();
 
   // get From-hook function
   const {
@@ -22,9 +22,21 @@ const Login = () => {
     reset,
   } = useForm();
 
-  // Login from handel
+  // Login From submit or user Login handel
   const handleLogin = (data) => {
-    console.log(data);
+    setLoginError("");
+    logIN(data.email, data.password)
+      .then(() => {
+        reset();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error.message.split("/")[1].split(")");
+        setLoginError(errorMessage[0]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   // Google login handel
@@ -33,6 +45,8 @@ const Login = () => {
       .then((result) => {
         console.log(result);
         if (result?.user?.uid) {
+          reset();
+          navigate(from, { replace: true });
         }
       })
       .catch((error) => {
