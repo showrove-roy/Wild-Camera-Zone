@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Contexts/AuthProvider";
 
 const Login = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
   // error message storage
   const [loginError, setLoginError] = useState("");
+
+  //get Authentication function
+  const { logIN, googleLogIn, setLoading, createJWT } = useAuth();
 
   // get From-hook function
   const {
@@ -18,6 +26,24 @@ const Login = () => {
   const handleLogin = (data) => {
     console.log(data);
   };
+
+  // Google login handel
+  const handelGoogleLogin = () => {
+    googleLogIn()
+      .then((result) => {
+        console.log(result);
+        if (result?.user?.uid) {
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error?.message?.split("/")[1];
+        setLoginError(errorMessage?.split(")")[0]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div>
       <div className='md:my-6 my-3 mx-2'>
@@ -89,7 +115,9 @@ const Login = () => {
             </div>
 
             <div className='divider'>OR</div>
-            <span className='btn btn-outline btn-accent'>
+            <span
+              onClick={handelGoogleLogin}
+              className='btn btn-outline btn-accent'>
               CONTINUE WITH GOOGLE
             </span>
           </form>

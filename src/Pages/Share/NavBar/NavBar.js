@@ -1,9 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo1.png";
+import { useAuth } from "../../../Contexts/AuthProvider";
 
 const NavBar = () => {
-  const user = true;
+  const { user, logOut } = useAuth();
+
+  // LogOut
+  const handelLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => alert(err.message));
+  };
   const menu = (
     <>
       <li className='font-semibold'>
@@ -24,7 +32,7 @@ const NavBar = () => {
       </li>
       <li className='font-semibold'>
         {user?.uid ? (
-          <button onClick={""}>Logout</button>
+          <button onClick={handelLogOut}>Logout</button>
         ) : (
           <Link to='/login'>Login</Link>
         )}
