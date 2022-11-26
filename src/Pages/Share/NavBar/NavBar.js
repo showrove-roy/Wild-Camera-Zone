@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/logo1.png";
 import { useAuth } from "../../../Contexts/AuthProvider";
 
-const NavBar = () => {
+const NavBar = ({ children }) => {
   const { user, logOut } = useAuth();
 
   // LogOut
@@ -41,10 +41,10 @@ const NavBar = () => {
   );
   return (
     <div className='navbar bg-base-200 sticky top-0 justify-between z-50 px-5'>
-      <div className=''>
-        {"" && (
+      <div className='navbar-start lg:hidden'>
+        {children && (
           <label
-            htmlFor='dashboard_drawer'
+            htmlFor='dashBoard-drawer'
             className='btn btn-square btn-ghost lg:hidden'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -52,7 +52,7 @@ const NavBar = () => {
               height='24'
               viewBox='0 0 24 24'
               fill='none'
-              stroke='#000000'
+              stroke='#fff'
               strokeWidth='2'
               strokeLinecap='round'
               strokeLinejoin='round'>
@@ -62,7 +62,8 @@ const NavBar = () => {
             </svg>
           </label>
         )}
-
+      </div>
+      <div className=' md:navbar-center navbar-start'>
         <Link to='/'>
           <img src={logo} alt='' className='h-10 cursor-pointer' />
         </Link>
@@ -85,7 +86,7 @@ const NavBar = () => {
         </label>
         <ul
           tabIndex={0}
-          className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 right-0'>
+          className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52 right-0'>
           {menu}
         </ul>
       </div>

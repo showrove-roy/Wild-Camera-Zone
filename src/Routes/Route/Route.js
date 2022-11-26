@@ -1,3 +1,5 @@
+import DashBoardLayout from "../../Layout/DashBoardLayout";
+import AddProduct from "../../Pages/AddProduct/AddProduct";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
 import Login from "../../Pages/Sign-IN-UP/Login";
 import SignUp from "../../Pages/Sign-IN-UP/SignUp";
@@ -22,6 +24,16 @@ const router = createBrowserRouter([
       {
         path: "/sign-up",
         element: <SignUp></SignUp>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashBoardLayout></DashBoardLayout>,
+    children: [
+      {
+        path: "/dashboard/add-product",
+        element: <AddProduct></AddProduct>,
       },
     ],
   },

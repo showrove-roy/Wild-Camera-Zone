@@ -1,14 +1,8 @@
-import { format, formatDistanceToNow, formatISO9075 } from "date-fns";
+import { format } from "date-fns";
 import React from "react";
-import tick from "../../../assets/check.png";
+import tick from "../../assets/check.png";
 
 const ProductCard = () => {
-  var d1 = new Date("2022-11-27 00:30:22");
-
-  const result5 = formatDistanceToNow(new Date(d1), {
-    includeSeconds: true,
-  });
-
   return (
     <div className='card card-compact bg-base-300 shadow-xl w-fit'>
       <div className='p-3 flex justify-between'>
@@ -46,12 +40,12 @@ const ProductCard = () => {
         </div>
         <div className='flex h-6'>
           <svg
-            className='hover:stroke-primary hover:h-5 ease-in-out duration-300 cursor-pointer'
+            className='hover:fill-red-600 hover:stroke-red-600  hover:h-5 ease-in-out duration-300 cursor-pointer'
             xmlns='http://www.w3.org/2000/svg'
             width='25'
             height='25'
             viewBox='0 0 24 24'
-            fill='none'
+            fill='#fff'
             stroke='#fff'
             strokeWidth='2'
             strokeLinecap='round'

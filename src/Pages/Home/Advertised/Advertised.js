@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../../Share/ProductCard/ProductCard";
+import ProductCard from "../../../Components/ProductCard/ProductCard";
 
 const Advertised = () => {
   return (
