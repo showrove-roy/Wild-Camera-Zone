@@ -2,7 +2,7 @@ import React from "react";
 
 const Infosection = () => {
   return (
-    <div className='mx-5 my-16 grid grid-cols-3 gap-10'>
+    <div className='mx-5 my-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
       <div className='card card-side bg-base-300 shadow-xl p-5 py-8 rounded-md'>
         <div className='mr-3'>
           <svg
