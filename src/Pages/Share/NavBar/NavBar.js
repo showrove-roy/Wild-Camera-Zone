@@ -6,6 +6,8 @@ import { useAuth } from "../../../Contexts/AuthProvider";
 const NavBar = ({ children }) => {
   const { user, logOut } = useAuth();
 
+  const roele = "seller";
+
   // LogOut
   const handelLogOut = () => {
     logOut()
@@ -22,9 +24,11 @@ const NavBar = ({ children }) => {
           <li className='font-semibold'>
             <Link to='/product/all'>All Products</Link>
           </li>
-          <li className='font-semibold'>
-            <Link to='/dashboard'>Dashboard</Link>
-          </li>
+          {roele === "seller" && (
+            <li className='font-semibold'>
+              <Link to='/dashboard/add-product'>Dashboard</Link>
+            </li>
+          )}
         </>
       )}
       <li className='font-semibold'>
