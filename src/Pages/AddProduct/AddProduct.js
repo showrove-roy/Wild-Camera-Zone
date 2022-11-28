@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useAuth } from "../../Contexts/AuthProvider";
+import Loading from "../Share/Loading/Loading";
 
 const AddProduct = () => {
   const [uploadErr, setUploadErr] = useState();
-  // get From-hook function
+  const imgBBkey = process.env.REACT_APP_ImaBB_Key;
+  const { user } = useAuth();
+
+  const [isUpdate, setIsUpdate] = useState(false);
+
   const {
     register,
     formState: { errors },
@@ -11,13 +18,50 @@ const AddProduct = () => {
     reset,
   } = useForm();
 
-  const handelImgUpload = (data) => {
-    console.log(
-      "🚀 ~ file: AddProduct.js ~ line 15 ~ handelImgUpload ~ data",
-      data
-    );
+  const handelAddProduct = (data) => {
+    setIsUpdate(true);
+    const image = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${imgBBkey}`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          console.log(result);
+          const product = {
+            product_name: data.product_name,
+            resell_price: data.resell_price,
+            original_price: data.original_price,
+            years_of_use: data.years_of_use,
+            category: data.category,
+            condition: data.condition,
+            seller_name: user.displayName,
+            seller_email: user.email,
+            seller_type: "new",
+            seller_phone_num: data.phone_number,
+            location: data.location,
+            product_url: result.data.url,
+            product_description: data.product_description,
+          };
+          console.log(
+            "🚀 ~ file: AddProduct.js ~ line 45 ~ .then ~ product",
+            product
+          );
+          toast.success("Added Done");
+          reset();
+        }
+      })
+      .catch((err) => {
+        setUploadErr(err.message);
+      })
+      .finally(() => {
+        setIsUpdate(false);
+      });
   };
-
   const handelReset = () => {
     const conformation = window.confirm("Want to reset?");
     if (conformation) {
@@ -25,13 +69,16 @@ const AddProduct = () => {
     }
   };
 
+  if (isUpdate) {
+    return <Loading></Loading>;
+  }
   return (
-    <section className='mb-10'>
+    <section className='mb-52'>
       <h2 className='text-3xl'>Add Product</h2>
       <div className=''>
         <form
           className='card-body mt-1 p-0'
-          onSubmit={handleSubmit(handelImgUpload)}>
+          onSubmit={handleSubmit(handelAddProduct)}>
           {uploadErr && (
             <p className='text-error mt-1 capitalize text-center font-semibold'>
               {uploadErr}
@@ -61,8 +108,8 @@ const AddProduct = () => {
             )}
           </div>
 
-          {/* Price section */}
           <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 '>
+            {/* Resell Price */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Resell Price (TK)</span>
@@ -80,6 +127,7 @@ const AddProduct = () => {
                 </p>
               )}
             </div>
+            {/* Original Price */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Original Price (TK)</span>
@@ -97,6 +145,7 @@ const AddProduct = () => {
                 </p>
               )}
             </div>
+            {/* Years Of Use */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Years Of Use</span>
@@ -114,6 +163,7 @@ const AddProduct = () => {
                 </p>
               )}
             </div>
+            {/* category */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Select Category</span>
@@ -135,6 +185,7 @@ const AddProduct = () => {
                 </p>
               )}
             </div>
+            {/* condition */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Select Product Condition</span>
@@ -155,21 +206,21 @@ const AddProduct = () => {
                 </p>
               )}
             </div>
+            {/* Product Image */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text'>Product Image (size: )</span>
               </label>
               <input
                 type='file'
-                accept='image/*'
                 className='input input-bordered'
-                {...register("product_img", {
+                {...register("image", {
                   required: "Product Image is required",
                 })}
               />
-              {errors.product_img && (
+              {errors.productImg && (
                 <p className='text-error mt-1' role='alert'>
-                  {errors.product_img?.message}
+                  {errors.productImg?.message}
                 </p>
               )}
             </div>
