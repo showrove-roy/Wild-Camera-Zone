@@ -3,11 +3,6 @@ import React from "react";
 import tick from "../../assets/check.png";
 
 const ProductCard = ({ product }) => {
-  console.log(
-    "🚀 ~ file: ProductCard.js ~ line 6 ~ ProductCard ~ product",
-    product
-  );
-
   const {
     category,
     condition,

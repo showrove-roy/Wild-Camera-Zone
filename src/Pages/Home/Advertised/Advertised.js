@@ -10,7 +10,7 @@ const Advertised = () => {
       <div className='divider'></div>
       <div className=''>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 gap-y-5'>
-          <ProductCard></ProductCard>
+          {/* <ProductCard></ProductCard> */}
         </div>
       </div>
       <div className='divider'></div>
