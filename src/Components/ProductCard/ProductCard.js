@@ -2,7 +2,30 @@ import { format } from "date-fns";
 import React from "react";
 import tick from "../../assets/check.png";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
+  console.log(
+    "🚀 ~ file: ProductCard.js ~ line 6 ~ ProductCard ~ product",
+    product
+  );
+
+  const {
+    category,
+    condition,
+    location,
+    original_price,
+    product_description,
+    product_name,
+    product_statues,
+    product_url,
+    resell_price,
+    seller_email,
+    seller_name,
+    seller_phone_num,
+    seller_type,
+    upload_time,
+    years_of_use,
+    _id,
+  } = product;
   return (
     <div className='card card-compact bg-base-300 shadow-xl w-fit'>
       <div className='p-3 flex justify-between'>
@@ -11,14 +34,18 @@ const ProductCard = () => {
             <span className='font-semibold text-sm opacity-50'>
               For Sale By{" "}
             </span>
-            Showrove Roy <div className='badge badge-info text-xs'>NEW</div>
-            <div className='badge p-0'>
-              <img className='h-4 w-4' src={tick} alt='' />
-            </div>
+            {seller_name}{" "}
+            {seller_type === "new" ? (
+              <div className='badge badge-info text-xs'>NEW</div>
+            ) : (
+              <div className='badge p-0'>
+                <img className='h-4 w-4' src={tick} alt='' />
+              </div>
+            )}
           </div>
           <div className='text-sm mt-2 flex items-center flex-wrap'>
             <span className='opacity-50 mr-1'>Posted on </span>
-            {format(new Date(), "PPp")} -
+            {format(new Date(upload_time), "PPp")} -
             <span className='font-semibold  text-base flex items-center'>
               <svg
                 className='mx-1'
@@ -34,7 +61,7 @@ const ProductCard = () => {
                 <path d='M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z' />
                 <circle cx='12' cy='10' r='3' />
               </svg>{" "}
-              Dhaka
+              {location}
             </span>
           </div>
         </div>
@@ -55,32 +82,36 @@ const ProductCard = () => {
         </div>
       </div>
       <figure>
-        <img src='https://placeimg.com/400/225/arch' alt='Shoes' />
+        <img src={product_url} alt='Shoes' />
       </figure>
       <div className='card-body'>
-        <h2 className='card-title'>Shoes!</h2>
+        <h2 className='card-title'>{product_name}</h2>
 
         <div className='stats shadow rounded'>
           <div className='stat place-items-center p-2'>
-            <div className='stat-title'>Downloads</div>
-            <div className='font-semibold text-primary'>$ 31K</div>
-            <div className='stat-title'>Downloads</div>
-            <div className='font-semibold text-primary'>$ 31K</div>
+            <div className='stat-title'>Resell Price</div>
+            <div className='font-semibold text-primary'>
+              {resell_price}
+              <span className='text-red-600 text-2xl'> ৳</span>
+            </div>
+            <div className='stat-title'>Original Price</div>
+            <div className='font-semibold text-primary'>
+              {original_price}
+              <span className='text-red-600 text-2xl'> ৳</span>
+            </div>
           </div>
 
           <div className='stat place-items-center p-2'>
-            <div className='stat-title'>Downloads</div>
-            <div className='font-semibold text-primary'>$ 31K</div>
-            <div className='stat-title'>Downloads</div>
-            <div className='font-semibold text-primary'>$ 31K</div>
+            <div className='stat-title'>Years Of Use</div>
+            <div className='font-semibold text-primary'>{years_of_use}</div>
+            <div className='stat-title'>Condition</div>
+            <div className='font-semibold text-primary capitalize'>
+              {condition}
+            </div>
           </div>
         </div>
         <p className='opacity-80 my-2'>
-          If a dog chews shoes whose shoes does he choose?If a dog chews shoes
-          whose shoes does he choose? If a dog chews shoes whose shoes does he
-          choose? If a dog chews shoes whose shoes does he choose? If a dog
-          chews shoes whose shoes does he choose? If a dog chews shoes whose
-          shoes does he choose?
+          {product_description.slice(0, 200)} ...
         </p>
         <div className='card-actions justify-center'>
           <button className='btn btn-primary btn-wide'>Book Now</button>

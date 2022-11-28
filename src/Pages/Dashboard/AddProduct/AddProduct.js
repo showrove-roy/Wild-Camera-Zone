@@ -228,7 +228,9 @@ const AddProduct = () => {
             {/* Product Image */}
             <div className='form-control'>
               <label className='label'>
-                <span className='label-text'>Product Image (size: )</span>
+                <span className='label-text'>
+                  Product Image (size: (400X225px))
+                </span>
               </label>
               <input
                 type='file'

@@ -1,4 +1,5 @@
 import DashBoardLayout from "../../Layout/DashBoardLayout";
+import AllProduct from "../../Pages/AllProduct/AllProduct";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/sign-up",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/product/all",
+        element: <AllProduct></AllProduct>,
       },
     ],
   },
