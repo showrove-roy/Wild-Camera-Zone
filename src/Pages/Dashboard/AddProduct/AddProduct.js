@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useAuth } from "../../Contexts/AuthProvider";
-import Loading from "../Share/Loading/Loading";
+import { useAuth } from "../../../Contexts/AuthProvider";
+import Loading from "../../Share/Loading/Loading";
 
 const AddProduct = () => {
   const [uploadErr, setUploadErr] = useState();
