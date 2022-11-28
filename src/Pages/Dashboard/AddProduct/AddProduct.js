@@ -194,9 +194,9 @@ const AddProduct = () => {
                 className='select select-bordered'>
                 <option value=''>Select...</option>
                 <option value='sony'>Sony</option>
-                <option value='cannon'>Canon</option>
-                <option value='cannon'>Nikon</option>
-                <option value='cannon'>GoPro</option>
+                <option value='canon'>Canon</option>
+                <option value='nikon'>Nikon</option>
+                <option value='gopro'>GoPro</option>
               </select>
               {errors.category && (
                 <p className='text-error mt-1' role='alert'>

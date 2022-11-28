@@ -5,6 +5,7 @@ import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
+import OneCategories from "../../Pages/Home/ProductCategories/OneCategories";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
 import Login from "../../Pages/Sign-IN-UP/Login";
 import SignUp from "../../Pages/Sign-IN-UP/SignUp";
@@ -33,6 +34,12 @@ const router = createBrowserRouter([
       {
         path: "/product/all",
         element: <AllProduct></AllProduct>,
+      },
+      {
+        path: "/categories/:category",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/product/category/${params.category}`),
+        element: <OneCategories></OneCategories>,
       },
     ],
   },

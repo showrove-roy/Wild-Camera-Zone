@@ -48,7 +48,7 @@ const MyProducts = () => {
       <table className='table table-zebra w-full my-3'>
         <thead>
           <tr>
-            <th className='bg-base-300'></th>
+            <th className='bg-base-300' style={{ position: "revert" }}></th>
             <th className='bg-base-300'>Product Name</th>
             <th className='bg-base-300'>Posted Date</th>
             <th className='bg-base-300'>Resell Price</th>
