@@ -7,7 +7,7 @@ const ProductCard = () => {
     <div className='card card-compact bg-base-300 shadow-xl w-fit'>
       <div className='p-3 flex justify-between'>
         <div className=''>
-          <p className='font-semibold capitalize'>
+          <div className='font-semibold capitalize'>
             <span className='font-semibold text-sm opacity-50'>
               For Sale By{" "}
             </span>
@@ -15,8 +15,8 @@ const ProductCard = () => {
             <div className='badge p-0'>
               <img className='h-4 w-4' src={tick} alt='' />
             </div>
-          </p>
-          <p className='text-sm mt-2 flex items-center flex-wrap'>
+          </div>
+          <div className='text-sm mt-2 flex items-center flex-wrap'>
             <span className='opacity-50 mr-1'>Posted on </span>
             {format(new Date(), "PPp")} -
             <span className='font-semibold  text-base flex items-center'>
@@ -36,7 +36,7 @@ const ProductCard = () => {
               </svg>{" "}
               Dhaka
             </span>
-          </p>
+          </div>
         </div>
         <div className='flex h-6'>
           <svg
@@ -62,17 +62,17 @@ const ProductCard = () => {
 
         <div className='stats shadow rounded'>
           <div className='stat place-items-center p-2'>
-            <p className='stat-title'>Downloads</p>
-            <p className='font-semibold text-primary'>$ 31K</p>
-            <p className='stat-title'>Downloads</p>
-            <p className='font-semibold text-primary'>$ 31K</p>
+            <div className='stat-title'>Downloads</div>
+            <div className='font-semibold text-primary'>$ 31K</div>
+            <div className='stat-title'>Downloads</div>
+            <div className='font-semibold text-primary'>$ 31K</div>
           </div>
 
           <div className='stat place-items-center p-2'>
-            <p className='stat-title'>Downloads</p>
-            <p className='font-semibold text-primary'>$ 31K</p>
-            <p className='stat-title'>Downloads</p>
-            <p className='font-semibold text-primary'>$ 31K</p>
+            <div className='stat-title'>Downloads</div>
+            <div className='font-semibold text-primary'>$ 31K</div>
+            <div className='stat-title'>Downloads</div>
+            <div className='font-semibold text-primary'>$ 31K</div>
           </div>
         </div>
         <p className='opacity-80 my-2'>

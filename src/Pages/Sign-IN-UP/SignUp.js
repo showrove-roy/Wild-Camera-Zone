@@ -155,11 +155,11 @@ const SignUp = () => {
                   value: 6,
                   message: "Password Length Must be 6 Characters",
                 },
-                // pattern: {
-                //   value: /(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])/,
-                //   message:
-                //     "Password must have at least one number, one special character, one uppercase & lowercase",
-                // },
+                pattern: {
+                  value: /(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])/,
+                  message:
+                    "Password must have at least one number, one special character, one uppercase & lowercase",
+                },
               })}
             />
             {errors.password && (
