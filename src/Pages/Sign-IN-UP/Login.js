@@ -44,7 +44,6 @@ const Login = () => {
   const handelGoogleLogin = () => {
     googleLogIn()
       .then((result) => {
-        console.log(result);
         if (result?.user?.uid) {
           updateUserDB(result?.user?.displayName, result?.user?.email);
         }
