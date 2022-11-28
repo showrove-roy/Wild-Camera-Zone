@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/AuthProvider";
 
@@ -45,8 +46,7 @@ const Login = () => {
       .then((result) => {
         console.log(result);
         if (result?.user?.uid) {
-          reset();
-          navigate(from, { replace: true });
+          updateUserDB(result?.user?.displayName, result?.user?.email);
         }
       })
       .catch((error) => {
@@ -56,6 +56,25 @@ const Login = () => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const updateUserDB = (name, email, role = "buyer") => {
+    const user = { name, email, role };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Successfully Create Account");
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

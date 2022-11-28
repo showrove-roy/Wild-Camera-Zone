@@ -29,7 +29,7 @@ const SignUp = () => {
     createNewUser(data.email, data.password)
       .then((result) => {
         if (result?.user?.uid) {
-          userUPDATE(data.name);
+          userUPDATE(data.name, data.email, data.user_role);
         }
       })
       .catch((error) => {
@@ -42,13 +42,12 @@ const SignUp = () => {
   };
 
   /// Update user firebase
-  const userUPDATE = (name) => {
+  const userUPDATE = (name, email, role) => {
     const userDetails = { displayName: name };
     updateUserProfile(userDetails)
       .then(() => {
+        updateUserDB(name, email, role);
         reset();
-        toast.success("Successfully Create Account");
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error?.message?.split("/")[1];
@@ -61,6 +60,7 @@ const SignUp = () => {
     googleLogIn()
       .then((result) => {
         if (result?.user?.uid) {
+          updateUserDB(result?.user?.displayName, result?.user?.email);
         }
       })
       .catch((error) => {
@@ -70,6 +70,25 @@ const SignUp = () => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const updateUserDB = (name, email, role = "buyer") => {
+    const user = { name, email, role };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Successfully Create Account");
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -116,6 +135,7 @@ const SignUp = () => {
                 required: "User Type is required",
               })}
               className='select select-bordered'>
+              <option value=''>Select...</option>
               <option value='buyer'>Buyer</option>
               <option value='seller'>Seller</option>
             </select>
