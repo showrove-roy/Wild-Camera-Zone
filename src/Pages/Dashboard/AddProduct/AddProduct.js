@@ -32,7 +32,6 @@ const AddProduct = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.success) {
-          console.log(result);
           const product = {
             product_name: data.product_name,
             resell_price: data.resell_price,
@@ -40,6 +39,7 @@ const AddProduct = () => {
             years_of_use: data.years_of_use,
             category: data.category,
             condition: data.condition,
+            product_statues: "unsold",
             seller_name: user.displayName,
             seller_email: user.email,
             seller_type: "new",
@@ -47,11 +47,8 @@ const AddProduct = () => {
             location: data.location,
             product_url: result.data.url,
             product_description: data.product_description,
+            upload_time: new Date(),
           };
-          console.log(
-            "🚀 ~ file: AddProduct.js ~ line 45 ~ .then ~ product",
-            product
-          );
           handelAddProductBD(product);
         }
       })
@@ -71,7 +68,6 @@ const AddProduct = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.acknowledged) {
           toast.success("Added Done");
           reset();
