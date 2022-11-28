@@ -18,6 +18,7 @@ const AddProduct = () => {
     reset,
   } = useForm();
 
+  // handel for get product details & image upload on imageBB and get link
   const handelAddProduct = (data) => {
     setIsUpdate(true);
     const image = data.image[0];
@@ -51,17 +52,38 @@ const AddProduct = () => {
             "🚀 ~ file: AddProduct.js ~ line 45 ~ .then ~ product",
             product
           );
-          toast.success("Added Done");
-          reset();
+          handelAddProductBD(product);
         }
       })
       .catch((err) => {
         setUploadErr(err.message);
+      });
+  };
+
+  // handel add product  to BD
+  const handelAddProductBD = (details) => {
+    fetch("http://localhost:5000/product/add", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(details),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Added Done");
+          reset();
+        }
       })
+      .catch((err) => console.error(err))
       .finally(() => {
         setIsUpdate(false);
       });
   };
+
+  // from reset handel for user
   const handelReset = () => {
     const conformation = window.confirm("Want to reset?");
     if (conformation) {
@@ -69,6 +91,7 @@ const AddProduct = () => {
     }
   };
 
+  // loading statement
   if (isUpdate) {
     return <Loading></Loading>;
   }
