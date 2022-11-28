@@ -1,22 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React from "react";
+import toast from "react-hot-toast";
 import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
 
 const MyProducts = () => {
   const { user } = useAuth();
-  const { isLoading, data: products = [] } = useQuery({
+  const {
+    isLoading,
+    data: products = [],
+    refetch,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
       fetch(`http://localhost:5000/product?email=${user.email}`).then((res) =>
         res.json()
       ),
   });
-  console.log(
-    "🚀 ~ file: MyProducts.js ~ line 13 ~ MyProducts ~ products",
-    products
-  );
+
+  // Add product on on advertise list
+  const handelAD = (id) => {
+    const ad_status = { ad_status: "ad" };
+    fetch(`http://localhost:5000/product/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(ad_status),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Product is Added on advertise list");
+          refetch();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   if (isLoading) return <Loading></Loading>;
 
@@ -32,6 +53,7 @@ const MyProducts = () => {
             <th className='bg-base-300'>Posted Date</th>
             <th className='bg-base-300'>Resell Price</th>
             <th className='bg-base-300'>Statues</th>
+            <th className='bg-base-300'>Ad</th>
             <th className='bg-base-300'>Delete</th>
           </tr>
         </thead>
@@ -49,6 +71,14 @@ const MyProducts = () => {
               </td>
               <td className='font-semibold text-sm capitalize text-warning'>
                 {product.product_statues}
+              </td>
+              <td className='font-semibold text-sm capitalize text-success'>
+                <button
+                  onClick={() => handelAD(product._id)}
+                  disabled={product.ad_status}
+                  className='btn btn-square btn-info btn-xs'>
+                  AD
+                </button>
               </td>
 
               <td>
