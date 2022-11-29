@@ -142,7 +142,6 @@ const SignUp = () => {
                 required: "User Type is required",
               })}
               className='select select-bordered'>
-              <option value=''>Select...</option>
               <option value='buyer'>Buyer</option>
               <option value='seller'>Seller</option>
             </select>
