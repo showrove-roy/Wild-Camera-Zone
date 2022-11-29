@@ -9,6 +9,7 @@ import OneCategories from "../../Pages/Home/ProductCategories/OneCategories";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
 import Login from "../../Pages/Sign-IN-UP/Login";
 import SignUp from "../../Pages/Sign-IN-UP/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layout/Main");
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashBoardLayout></DashBoardLayout>,
+    element: (
+      <PrivateRoute>
+        <DashBoardLayout></DashBoardLayout>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard/add-product",

@@ -7,7 +7,6 @@ import useUserType from "../../../Hooks/useUserType/useUserType";
 const NavBar = ({ children }) => {
   const { user, logOut } = useAuth();
 
-  const roele = "seller";
   const [userType] = useUserType(user?.email);
 
   // LogOut
