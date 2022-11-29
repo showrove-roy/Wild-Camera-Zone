@@ -20,11 +20,11 @@ const NavBar = ({ children }) => {
       <li className='font-semibold'>
         <Link to='/'>Home</Link>
       </li>
+      <li className='font-semibold'>
+        <Link to='/product/all'>All Products</Link>
+      </li>
       {user?.uid && (
         <>
-          <li className='font-semibold'>
-            <Link to='/product/all'>All Products</Link>
-          </li>
           {userType?.role === "seller" && (
             <li className='font-semibold'>
               <Link to='/dashboard/my-products'>Dashboard</Link>

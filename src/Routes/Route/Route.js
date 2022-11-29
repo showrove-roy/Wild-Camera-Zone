@@ -47,7 +47,11 @@ const router = createBrowserRouter([
               authorization: `bearer ${localStorage.getItem("jwToken")}`,
             },
           }),
-        element: <OneCategories></OneCategories>,
+        element: (
+          <PrivateRoute>
+            <OneCategories></OneCategories>,
+          </PrivateRoute>
+        ),
       },
     ],
   },
