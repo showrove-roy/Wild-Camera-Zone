@@ -58,7 +58,7 @@ const Login = () => {
   };
 
   const updateUserDB = (name, email, role = "buyer") => {
-    const user = { name, email, role };
+    const user = { name, email, role, creation_time: new Date() };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
