@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo1.png";
 import { useAuth } from "../../../Contexts/AuthProvider";
+import useUserType from "../../../Hooks/useUserType/useUserType";
 
 const NavBar = ({ children }) => {
   const { user, logOut } = useAuth();
 
   const roele = "seller";
+  const [userType] = useUserType(user?.email);
 
   // LogOut
   const handelLogOut = () => {
@@ -24,9 +26,19 @@ const NavBar = ({ children }) => {
           <li className='font-semibold'>
             <Link to='/product/all'>All Products</Link>
           </li>
-          {roele === "seller" && (
+          {userType?.role === "seller" && (
             <li className='font-semibold'>
-              <Link to='/dashboard/add-product'>Dashboard</Link>
+              <Link to='/dashboard/my-products'>Dashboard</Link>
+            </li>
+          )}
+          {userType?.role === "buyer" && (
+            <li className='font-semibold'>
+              <Link to='/dashboard/my-orders'>Dashboard</Link>
+            </li>
+          )}
+          {userType?.role === "admin" && (
+            <li className='font-semibold'>
+              <Link to='/dashboard/all-sellers'>Dashboard</Link>
             </li>
           )}
         </>
