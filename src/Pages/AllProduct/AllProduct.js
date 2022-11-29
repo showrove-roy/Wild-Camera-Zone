@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import Loading from "../Share/Loading/Loading";
+import Login from "../Sign-IN-UP/Login";
 
 const AllProduct = () => {
-  let location = useLocation();
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
@@ -18,8 +17,8 @@ const AllProduct = () => {
 
   if (isLoading) return <Loading></Loading>;
 
-  if (products.message) {
-    return <Navigate to='/unauthorized' state={{ from: location }} replace />;
+  if (products?.message) {
+    return <Login>We did not recognize you! Please Login/SignUp</Login>;
   }
 
   return (

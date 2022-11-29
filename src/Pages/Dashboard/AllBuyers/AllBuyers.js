@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import Loading from "../../Share/Loading/Loading";
+import Login from "../../Sign-IN-UP/Login";
 
 const AllBuyers = () => {
   const {
@@ -10,9 +11,16 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["all_buyers"],
     queryFn: () =>
-      fetch("http://localhost:5000/users?role=buyer").then((res) => res.json()),
+      fetch("http://localhost:5000/users?role=buyer", {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("jwToken")}`,
+        },
+      }).then((res) => res.json()),
   });
   if (isLoading) return <Loading></Loading>;
+  if (buyers?.message) {
+    return <Login>We did not recognize you! Please Login/SignUp</Login>;
+  }
   return (
     <section>
       <h2 className='text-3xl'>All Buyers</h2>

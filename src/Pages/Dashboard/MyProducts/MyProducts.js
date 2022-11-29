@@ -4,6 +4,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
+import Login from "../../Sign-IN-UP/Login";
 
 const MyProducts = () => {
   const { user } = useAuth();
@@ -14,9 +15,11 @@ const MyProducts = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch(`http://localhost:5000/product?email=${user.email}`).then((res) =>
-        res.json()
-      ),
+      fetch(`http://localhost:5000/product?email=${user.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("jwToken")}`,
+        },
+      }).then((res) => res.json()),
   });
 
   // Add product on on advertise list
@@ -40,6 +43,9 @@ const MyProducts = () => {
   };
 
   if (isLoading) return <Loading></Loading>;
+  if (products?.message) {
+    return <Login>We did not recognize you! Please Login/SignUp</Login>;
+  }
 
   return (
     <section>

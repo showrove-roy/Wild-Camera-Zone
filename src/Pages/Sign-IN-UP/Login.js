@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/AuthProvider";
 
-const Login = () => {
+const Login = ({ children }) => {
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -83,7 +83,12 @@ const Login = () => {
       <div className='md:my-6 my-3 mx-2'>
         <div className='card w-full max-w-md mx-auto shadow-md rounded-xl'>
           <form onSubmit={handleSubmit(handleLogin)} className='card-body pt-1'>
-            <h3 className='text-xl text-center'>Login Now!</h3>
+            {children ? (
+              <h3 className='text-xl text-center'>{children}</h3>
+            ) : (
+              <h3 className='text-xl text-center'>Login Now!</h3>
+            )}
+
             {loginError && (
               <p className='text-error mt-1 capitalize text-center font-semibold'>
                 {loginError}

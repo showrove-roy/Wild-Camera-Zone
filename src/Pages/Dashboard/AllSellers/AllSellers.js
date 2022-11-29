@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import toast from "react-hot-toast";
 import Loading from "../../Share/Loading/Loading";
+import Login from "../../Sign-IN-UP/Login";
 
 const AllSellers = () => {
   const {
@@ -11,9 +12,11 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["all_sellers"],
     queryFn: () =>
-      fetch("http://localhost:5000/users?role=seller").then((res) =>
-        res.json()
-      ),
+      fetch("http://localhost:5000/users?role=seller", {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("jwToken")}`,
+        },
+      }).then((res) => res.json()),
   });
 
   const handelVerify = (sellerEmail) => {
@@ -31,6 +34,9 @@ const AllSellers = () => {
   };
 
   if (isLoading) return <Loading></Loading>;
+  if (sellers?.message) {
+    return <Login>We did not recognize you! Please Login/SignUp</Login>;
+  }
   return (
     <section>
       <h2 className='text-3xl'>All Sellers</h2>
