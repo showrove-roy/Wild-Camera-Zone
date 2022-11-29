@@ -6,6 +6,7 @@ import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import OneCategories from "../../Pages/Home/ProductCategories/OneCategories";
+import CheckUser from "../../Pages/Share/CheckUser/CheckUser";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
 import Login from "../../Pages/Sign-IN-UP/Login";
 import SignUp from "../../Pages/Sign-IN-UP/SignUp";
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Err404Page></Err404Page>,
+  },
+  {
+    path: "/unauthorized",
+    element: <CheckUser></CheckUser>,
   },
 ]);
 
