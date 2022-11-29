@@ -13,7 +13,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
 
   //get Authentication function
-  const { logIN, googleLogIn, setLoading } = useAuth();
+  const { logIN, googleLogIn, setLoading, createJWT } = useAuth();
 
   // get From-hook function
   const {
@@ -28,6 +28,7 @@ const Login = () => {
     setLoginError("");
     logIN(data.email, data.password)
       .then(() => {
+        createJWT(data.email);
         reset();
         navigate(from, { replace: true });
       })
@@ -69,6 +70,7 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
+          createJWT(email);
           toast.success("Successfully Login");
           navigate(from, { replace: true });
         }

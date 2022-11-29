@@ -12,8 +12,13 @@ const SignUp = () => {
   const [signUPError, setSignUPError] = useState("");
 
   //get Authentication function
-  const { createNewUser, updateUserProfile, googleLogIn, setLoading } =
-    useAuth();
+  const {
+    createNewUser,
+    updateUserProfile,
+    googleLogIn,
+    setLoading,
+    createJWT,
+  } = useAuth();
 
   // get From-hook function
   const {
@@ -84,6 +89,8 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
+          createJWT(email);
+          reset();
           toast.success("Successfully Create Account");
           navigate(from, { replace: true });
         }
