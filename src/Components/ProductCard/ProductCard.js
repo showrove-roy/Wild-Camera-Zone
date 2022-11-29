@@ -30,12 +30,12 @@ const ProductCard = ({ product }) => {
               For Sale By{" "}
             </span>
             {seller_name}{" "}
-            {seller_type === "new" ? (
-              <div className='badge badge-info text-xs'>NEW</div>
-            ) : (
+            {product?.seller_type ? (
               <div className='badge p-0'>
                 <img className='h-4 w-4' src={tick} alt='' />
               </div>
+            ) : (
+              <div className='badge badge-info text-xs'>NEW</div>
             )}
           </div>
           <div className='text-sm mt-2 flex items-center flex-wrap'>

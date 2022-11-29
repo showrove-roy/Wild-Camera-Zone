@@ -69,7 +69,7 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          toast.success("Successfully Create Account");
+          toast.success("Successfully Login");
           navigate(from, { replace: true });
         }
       })

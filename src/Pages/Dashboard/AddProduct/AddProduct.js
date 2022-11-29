@@ -42,7 +42,6 @@ const AddProduct = () => {
             product_statues: "unsold",
             seller_name: user.displayName,
             seller_email: user.email,
-            seller_type: "new",
             seller_phone_num: data.phone_number,
             location: data.location,
             product_url: result.data.url,

@@ -4,7 +4,6 @@ import ProductCard from "../../../Components/ProductCard/ProductCard";
 
 const OneCategories = () => {
   const products = useLoaderData();
-  console.log(products.length === 0);
   return (
     <section className='m-5'>
       {products.length === 0 ? (
