@@ -29,10 +29,11 @@ const ProductCard = ({ product, setSelectProduct }) => {
   // add wish list handel
   const handelAddWishList = (id) => {
     const wish = {
-      productId: id,
-      productName: product_name,
-      productPrice: resell_price,
-      productStatues: product_statues,
+      _id: id,
+      product_name,
+      resell_price,
+      product_statues,
+      seller_email,
       buyerEmail: user.email,
     };
     fetch(`http://localhost:5000/wishlist?email=${user.email}&pid=${id}`, {
@@ -153,7 +154,6 @@ const ProductCard = ({ product, setSelectProduct }) => {
               </Link>
               <label
                 disabled
-                onClick={() => setSelectProduct(product)}
                 htmlFor='booking-modal'
                 className='btn btn-primary'>
                 Book Now

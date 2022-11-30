@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import BookingModal from "../../../Components/BookingModal/BookingModal";
 import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
 import Login from "../../Sign-IN-UP/Login";
 
 const MyWishList = () => {
+  const [selectProduct, setSelectProduct] = useState(null);
   const { user } = useAuth();
   const {
     isLoading,
-    data: orders = [],
+    data: wishlists = [],
     refetch,
   } = useQuery({
-    queryKey: ["myOrders", user.email],
+    queryKey: ["wishlist", user.email],
     queryFn: () =>
       fetch(`http://localhost:5000/wishlist?email=${user.email}`, {
         headers: {
@@ -20,7 +22,7 @@ const MyWishList = () => {
       }).then((res) => res.json()),
   });
   if (isLoading) return <Loading></Loading>;
-  if (orders?.message) {
+  if (wishlists?.message) {
     return <Login>We did not recognize you! Please Login/SignUp</Login>;
   }
   return (
@@ -38,19 +40,24 @@ const MyWishList = () => {
           </tr>
         </thead>
         <tbody>
-          {orders?.map((order, i) => (
-            <tr key={order._id}>
+          {wishlists?.map((wish, i) => (
+            <tr key={wish._id}>
               <td>{i + 1}</td>
-              <td className='font-semibold text-sm'>{order.productName}</td>
+              <td className='font-semibold text-sm'>{wish.product_name}</td>
               <td className='font-semibold text-sm'>
-                {order.productPrice}
+                {wish.resell_price}
                 <span className='text-red-600 text-2xl'> ৳</span>
               </td>
               <td className='font-semibold text-sm uppercase text-primary'>
-                {order.productStatues}
+                {wish.product_statues}
               </td>
               <td>
-                <button className='btn btn-info btn-xs'>Book</button>
+                <label
+                  onClick={() => setSelectProduct(wish)}
+                  htmlFor='booking-modal'
+                  className='btn btn-info btn-xs'>
+                  Book
+                </label>
               </td>
               <td>
                 <button className='btn btn-square btn-outline btn-error btn-xs'>
@@ -73,6 +80,11 @@ const MyWishList = () => {
           ))}
         </tbody>
       </table>
+      {selectProduct && (
+        <BookingModal
+          selectProduct={selectProduct}
+          setSelectProduct={setSelectProduct}></BookingModal>
+      )}
     </section>
   );
 };
