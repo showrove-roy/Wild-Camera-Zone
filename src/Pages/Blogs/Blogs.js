@@ -2,7 +2,7 @@ import React from "react";
 
 const Blogs = () => {
   return (
-    <div className='h-screen mx-10 lg:mx-40 my-10'>
+    <div className='h-screen mx-5 lg:mx-40 my-10'>
       <div
         tabIndex={0}
         className='collapse collapse-arrow my-3 border border-base-300 bg-base-300 rounded-box'>
