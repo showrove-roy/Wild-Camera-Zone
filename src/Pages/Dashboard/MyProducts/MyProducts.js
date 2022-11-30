@@ -42,6 +42,24 @@ const MyProducts = () => {
       .catch((err) => console.log(err));
   };
 
+  // delete product
+  const handelDelete = (id) => {
+    const conformation = window.confirm("Want to Delete?");
+    if (conformation) {
+      fetch(`http://localhost:5000/product/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("Delete Successfully");
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
   if (isLoading) return <Loading></Loading>;
   if (products?.message) {
     return <Login>We did not recognize you! Please Login/SignUp</Login>;
@@ -88,7 +106,9 @@ const MyProducts = () => {
               </td>
 
               <td>
-                <button className='btn btn-square btn-outline btn-error btn-xs'>
+                <button
+                  onClick={() => handelDelete(product._id)}
+                  className='btn btn-square btn-outline btn-error btn-xs'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-6 w-6'
