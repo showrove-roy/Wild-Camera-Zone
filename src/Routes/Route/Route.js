@@ -8,6 +8,7 @@ import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import OneCategories from "../../Pages/Home/ProductCategories/OneCategories";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
+import ErrorElement from "../../Pages/Share/ErrorElement/ErrorElement";
 import Login from "../../Pages/Sign-IN-UP/Login";
 import SignUp from "../../Pages/Sign-IN-UP/SignUp";
 import AdminRoute from "../AdminRoute/AdminRoute";
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         path: "/",
@@ -66,6 +68,7 @@ const router = createBrowserRouter([
         <DashBoardLayout></DashBoardLayout>
       </PrivateRoute>
     ),
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         path: "/dashboard/add-product",

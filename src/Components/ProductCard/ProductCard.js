@@ -28,13 +28,16 @@ const ProductCard = ({ product, setSelectProduct }) => {
 
   // add wish list handel
   const handelAddWishList = (id) => {
+    if (!user?.email) {
+      return <Navigate to='/login'></Navigate>;
+    }
     const wish = {
       product_Id: id,
       product_name,
       resell_price,
       product_statues,
       seller_email,
-      buyerEmail: user.email,
+      buyerEmail: user?.email,
     };
     fetch(
       `https://wild-camera-zone-server.vercel.app/wishlist?email=${user.email}&pid=${id}`,
