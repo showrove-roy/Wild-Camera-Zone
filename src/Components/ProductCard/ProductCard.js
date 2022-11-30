@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import React from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import tick from "../../assets/check.png";
 import { useAuth } from "../../Contexts/AuthProvider";
 
@@ -45,10 +45,17 @@ const ProductCard = ({ product, setSelectProduct }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.message === "booked") {
+          toast.error(" Already this Product On Your Orders List", {
+            duration: 5000,
+          });
+          <Navigate to='/dashboard/my-orders'></Navigate>;
+        }
         if (data.message === "wished") {
           toast.error(" Already this Product On Your WishList", {
             duration: 5000,
           });
+          <Navigate to='/dashboard/my-wishlist'></Navigate>;
         }
         if (data.acknowledged) {
           toast.success(" Successfully You Have add WishList", {

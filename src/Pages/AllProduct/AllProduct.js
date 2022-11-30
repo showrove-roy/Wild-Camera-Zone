@@ -7,7 +7,11 @@ import Login from "../Sign-IN-UP/Login";
 
 const AllProduct = () => {
   const [selectProduct, setSelectProduct] = useState(null);
-  const { isLoading, data: products = [] } = useQuery({
+  const {
+    isLoading,
+    data: products = [],
+    refetch,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
       fetch("http://localhost:5000/product", {
@@ -38,6 +42,7 @@ const AllProduct = () => {
       </div>
       {selectProduct && (
         <BookingModal
+          refetch={refetch}
           selectProduct={selectProduct}
           setSelectProduct={setSelectProduct}></BookingModal>
       )}

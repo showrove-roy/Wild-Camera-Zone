@@ -83,7 +83,8 @@ const MyWishList = () => {
       {selectProduct && (
         <BookingModal
           selectProduct={selectProduct}
-          setSelectProduct={setSelectProduct}></BookingModal>
+          setSelectProduct={setSelectProduct}
+          refetch={refetch}></BookingModal>
       )}
     </section>
   );

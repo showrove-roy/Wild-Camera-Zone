@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useAuth } from "../../Contexts/AuthProvider";
 
-const BookingModal = ({ selectProduct, setSelectProduct }) => {
+const BookingModal = ({ selectProduct, setSelectProduct, refetch }) => {
   const { user } = useAuth();
   const {
     register,
@@ -43,6 +43,7 @@ const BookingModal = ({ selectProduct, setSelectProduct }) => {
           toast.success(" Successfully You Have Booked this Product", {
             duration: 4000,
           });
+          refetch();
         }
         setSelectProduct(null);
       })
