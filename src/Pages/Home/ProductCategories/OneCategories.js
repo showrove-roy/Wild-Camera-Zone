@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import BookingModal from "../../../Components/BookingModal/BookingModal";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import Login from "../../Sign-IN-UP/Login";
 
 const OneCategories = () => {
+  const [selectProduct, setSelectProduct] = useState(null);
   const products = useLoaderData();
   if (products?.message) {
     return <Login>We did not recognize you! Please Login/SignUp</Login>;
   }
+
   return (
     <section className='m-5'>
       {products.length === 0 ? (
@@ -17,9 +20,17 @@ const OneCategories = () => {
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 gap-y-5 my-3'>
           {products.map((product) => (
-            <ProductCard key={product._id} product={product}></ProductCard>
+            <ProductCard
+              key={product._id}
+              product={product}
+              setSelectProduct={setSelectProduct}></ProductCard>
           ))}
         </div>
+      )}
+      {selectProduct && (
+        <BookingModal
+          selectProduct={selectProduct}
+          setSelectProduct={setSelectProduct}></BookingModal>
       )}
     </section>
   );

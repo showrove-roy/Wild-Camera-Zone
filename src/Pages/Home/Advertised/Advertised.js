@@ -3,7 +3,7 @@ import React from "react";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import Loading from "../../Share/Loading/Loading";
 
-const Advertised = () => {
+const Advertised = ({ setSelectProduct }) => {
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ["adproduct"],
     queryFn: () =>
@@ -20,7 +20,10 @@ const Advertised = () => {
       <div className=''>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 gap-y-5'>
           {products.map((product) => (
-            <ProductCard key={product._id} product={product}></ProductCard>
+            <ProductCard
+              key={product._id}
+              product={product}
+              setSelectProduct={setSelectProduct}></ProductCard>
           ))}
         </div>
       </div>

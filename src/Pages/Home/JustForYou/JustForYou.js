@@ -3,7 +3,7 @@ import React from "react";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import Loading from "../../Share/Loading/Loading";
 
-const JustForYou = () => {
+const JustForYou = ({ setSelectProduct }) => {
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ["jsproducts"],
     queryFn: () =>
@@ -24,7 +24,10 @@ const JustForYou = () => {
       <h3 className='capitalize mb-2 font-semibold text-2xl'>JustForYou</h3>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 gap-y-5 my-3'>
         {products.slice(0, 4).map((product) => (
-          <ProductCard key={product._id} product={product}></ProductCard>
+          <ProductCard
+            key={product._id}
+            product={product}
+            setSelectProduct={setSelectProduct}></ProductCard>
         ))}
       </div>
     </section>
