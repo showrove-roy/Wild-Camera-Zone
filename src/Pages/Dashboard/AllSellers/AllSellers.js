@@ -32,6 +32,22 @@ const AllSellers = () => {
       })
       .catch((err) => console.error(err));
   };
+  const handelDelete = (id) => {
+    const conformation = window.confirm("Want to Delete?");
+    if (conformation) {
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("Delete Successfully");
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
 
   if (isLoading) return <Loading></Loading>;
   if (sellers?.message) {
@@ -71,7 +87,9 @@ const AllSellers = () => {
               </td>
 
               <td>
-                <button className='btn btn-square btn-outline btn-error btn-xs'>
+                <button
+                  onClick={() => handelDelete(seller._id)}
+                  className='btn btn-square btn-outline btn-error btn-xs'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-6 w-6'

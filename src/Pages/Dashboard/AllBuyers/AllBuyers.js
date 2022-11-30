@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import toast from "react-hot-toast";
 import Loading from "../../Share/Loading/Loading";
 import Login from "../../Sign-IN-UP/Login";
 
@@ -17,6 +18,24 @@ const AllBuyers = () => {
         },
       }).then((res) => res.json()),
   });
+
+  const handelDelete = (id) => {
+    const conformation = window.confirm("Want to Delete?");
+    if (conformation) {
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("Delete Successfully");
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
   if (isLoading) return <Loading></Loading>;
   if (buyers?.message) {
     return <Login>We did not recognize you! Please Login/SignUp</Login>;
@@ -41,7 +60,9 @@ const AllBuyers = () => {
               <td className='font-semibold text-sm'>{buyer.email}</td>
 
               <td>
-                <button className='btn btn-square btn-outline btn-error btn-xs'>
+                <button
+                  onClick={() => handelDelete(buyer._id)}
+                  className='btn btn-square btn-outline btn-error btn-xs'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-6 w-6'
