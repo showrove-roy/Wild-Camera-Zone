@@ -1,8 +1,11 @@
 import { format } from "date-fns";
 import React from "react";
+import { Link } from "react-router-dom";
 import tick from "../../assets/check.png";
+import { useAuth } from "../../Contexts/AuthProvider";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setSelectProduct }) => {
+  const { user } = useAuth();
   const {
     category,
     condition,
@@ -109,7 +112,27 @@ const ProductCard = ({ product }) => {
           {product_description.slice(0, 200)} ...
         </p>
         <div className='card-actions justify-center'>
-          <button className='btn btn-primary btn-wide'>Book Now</button>
+          {!user?.uid ? (
+            <>
+              <Link to='/login' className='btn btn-secondary'>
+                Login
+              </Link>
+              <label
+                disabled
+                onClick={() => setSelectProduct(product)}
+                htmlFor='booking-modal'
+                className='btn btn-primary'>
+                Book Now
+              </label>
+            </>
+          ) : (
+            <label
+              onClick={() => setSelectProduct(product)}
+              htmlFor='booking-modal'
+              className='btn btn-primary btn-wide'>
+              Book Now
+            </label>
+          )}
         </div>
       </div>
     </div>

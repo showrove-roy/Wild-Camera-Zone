@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import BookingModal from "../../Components/BookingModal/BookingModal";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import Loading from "../Share/Loading/Loading";
 import Login from "../Sign-IN-UP/Login";
 
 const AllProduct = () => {
+  const [selectProduct, setSelectProduct] = useState(null);
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
@@ -28,9 +30,17 @@ const AllProduct = () => {
       </h2>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 gap-y-5 my-3'>
         {products?.map((product) => (
-          <ProductCard key={product._id} product={product}></ProductCard>
+          <ProductCard
+            key={product._id}
+            product={product}
+            setSelectProduct={setSelectProduct}></ProductCard>
         ))}
       </div>
+      {selectProduct && (
+        <BookingModal
+          selectProduct={selectProduct}
+          setSelectProduct={setSelectProduct}></BookingModal>
+      )}
     </section>
   );
 };
