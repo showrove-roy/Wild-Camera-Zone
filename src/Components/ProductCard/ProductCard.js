@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import React from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import tick from "../../assets/check.png";
 import { useAuth } from "../../Contexts/AuthProvider";
@@ -24,6 +25,39 @@ const ProductCard = ({ product, setSelectProduct }) => {
     years_of_use,
     _id,
   } = product;
+
+  // add wish list handel
+  const handelAddWishList = (id) => {
+    const wish = {
+      productId: id,
+      productName: product_name,
+      productPrice: resell_price,
+      productStatues: product_statues,
+      buyerEmail: user.email,
+    };
+    fetch(`http://localhost:5000/wishlist?email=${user.email}&pid=${id}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(wish),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "wished") {
+          toast.error(" Already this Product On Your WishList", {
+            duration: 5000,
+          });
+        }
+        if (data.acknowledged) {
+          toast.success(" Successfully You Have add WishList", {
+            duration: 4000,
+          });
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className='card card-compact bg-base-300 shadow-xl w-fit'>
       <div className='p-3 flex justify-between'>
@@ -63,7 +97,7 @@ const ProductCard = ({ product, setSelectProduct }) => {
             </span>
           </div>
         </div>
-        <div className='flex h-6'>
+        <div onClick={() => handelAddWishList(_id)} className='flex h-6'>
           <svg
             className='hover:fill-red-600 hover:stroke-red-600  hover:h-5 ease-in-out duration-300 cursor-pointer'
             xmlns='http://www.w3.org/2000/svg'

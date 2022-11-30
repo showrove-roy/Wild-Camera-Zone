@@ -4,7 +4,7 @@ import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
 import Login from "../../Sign-IN-UP/Login";
 
-const MyOrders = () => {
+const MyWishList = () => {
   const { user } = useAuth();
   const {
     isLoading,
@@ -13,7 +13,7 @@ const MyOrders = () => {
   } = useQuery({
     queryKey: ["myOrders", user.email],
     queryFn: () =>
-      fetch(`http://localhost:5000/booking?email=${user.email}`, {
+      fetch(`http://localhost:5000/wishlist?email=${user.email}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("jwToken")}`,
         },
@@ -25,7 +25,7 @@ const MyOrders = () => {
   }
   return (
     <section>
-      <h2 className='text-3xl'>My Orders</h2>
+      <h2 className='text-3xl'>My Wish List</h2>
       <table className='table table-zebra w-full my-3'>
         <thead>
           <tr>
@@ -33,7 +33,7 @@ const MyOrders = () => {
             <th className='bg-base-300'>Product Name</th>
             <th className='bg-base-300'>Price</th>
             <th className='bg-base-300'>Statues</th>
-            <th className='bg-base-300'>Pay</th>
+            <th className='bg-base-300'>Book</th>
             <th className='bg-base-300'>Delete</th>
           </tr>
         </thead>
@@ -50,7 +50,7 @@ const MyOrders = () => {
                 {order.productStatues}
               </td>
               <td>
-                <button className='btn btn-info btn-xs'>Pay</button>
+                <button className='btn btn-info btn-xs'>Book</button>
               </td>
               <td>
                 <button className='btn btn-square btn-outline btn-error btn-xs'>
@@ -77,4 +77,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default MyWishList;

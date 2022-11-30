@@ -30,9 +30,14 @@ const DashBoardLayout = () => {
           <label htmlFor='dashBoard-drawer' className='drawer-overlay'></label>
           <ul className='menu p-4 w-60 bg-base-300 text-base-content font-semibold'>
             {userType?.role === "buyer" && (
-              <li>
-                <Link to='/dashboard/my-orders'>My Orders</Link>
-              </li>
+              <>
+                <li>
+                  <Link to='/dashboard/my-orders'>My Orders</Link>
+                </li>
+                <li>
+                  <Link to='/dashboard/my-wishlist'>My Wish List</Link>
+                </li>
+              </>
             )}
             {userType?.role === "seller" && (
               <>

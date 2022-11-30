@@ -5,6 +5,7 @@ import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
+import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import OneCategories from "../../Pages/Home/ProductCategories/OneCategories";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
 import Login from "../../Pages/Sign-IN-UP/Login";
@@ -76,6 +77,14 @@ const router = createBrowserRouter([
         element: (
           <BuyerRoute>
             <MyOrders></MyOrders>
+          </BuyerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-wishlist",
+        element: (
+          <BuyerRoute>
+            <MyWishList></MyWishList>
           </BuyerRoute>
         ),
       },
