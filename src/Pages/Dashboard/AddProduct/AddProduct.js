@@ -58,7 +58,7 @@ const AddProduct = () => {
 
   // handel add product  to BD
   const handelAddProductBD = (details) => {
-    fetch("http://localhost:5000/product/add", {
+    fetch("https://wild-camera-zone-server.vercel.app/product/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",

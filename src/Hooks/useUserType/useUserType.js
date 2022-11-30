@@ -5,7 +5,7 @@ const useUserType = (email) => {
   const [userLoading, setUserLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/${email}`)
+      fetch(`https://wild-camera-zone-server.vercel.app/user/${email}`)
         .then((res) => res.json())
         .then((data) => {
           setIsUserType(data);

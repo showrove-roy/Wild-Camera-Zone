@@ -14,7 +14,7 @@ const AllProduct = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch("http://localhost:5000/product", {
+      fetch("https://wild-camera-zone-server.vercel.app/product", {
         headers: {
           authorization: `bearer ${localStorage.getItem("jwToken")}`,
         },

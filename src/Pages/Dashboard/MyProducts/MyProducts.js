@@ -15,17 +15,20 @@ const MyProducts = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch(`http://localhost:5000/product?email=${user.email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("jwToken")}`,
-        },
-      }).then((res) => res.json()),
+      fetch(
+        `https://wild-camera-zone-server.vercel.app/product?email=${user.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("jwToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   // Add product on on advertise list
   const handelAD = (id) => {
     const ad_status = { ad_status: "ad" };
-    fetch(`http://localhost:5000/product/${id}`, {
+    fetch(`https://wild-camera-zone-server.vercel.app/product/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -46,7 +49,7 @@ const MyProducts = () => {
   const handelDelete = (id) => {
     const conformation = window.confirm("Want to Delete?");
     if (conformation) {
-      fetch(`http://localhost:5000/product/${id}`, {
+      fetch(`https://wild-camera-zone-server.vercel.app/product/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

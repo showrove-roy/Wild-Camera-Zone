@@ -7,7 +7,9 @@ const Advertised = ({ setSelectProduct }) => {
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ["adproduct"],
     queryFn: () =>
-      fetch("http://localhost:5000/product/ad").then((res) => res.json()),
+      fetch("https://wild-camera-zone-server.vercel.app/product/ad").then(
+        (res) => res.json()
+      ),
   });
 
   if (isLoading) return <Loading></Loading>;

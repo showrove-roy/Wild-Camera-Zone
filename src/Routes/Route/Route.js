@@ -43,11 +43,14 @@ const router = createBrowserRouter([
       {
         path: "/categories/:category",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/category/${params.category}`, {
-            headers: {
-              authorization: `bearer ${localStorage.getItem("jwToken")}`,
-            },
-          }),
+          fetch(
+            `https://wild-camera-zone-server.vercel.app/product/category/${params.category}`,
+            {
+              headers: {
+                authorization: `bearer ${localStorage.getItem("jwToken")}`,
+              },
+            }
+          ),
         element: (
           <PrivateRoute>
             <OneCategories></OneCategories>,

@@ -60,7 +60,7 @@ const Login = ({ children }) => {
 
   const updateUserDB = (name, email, role = "buyer") => {
     const user = { name, email, role, creation_time: new Date() };
-    fetch("http://localhost:5000/users", {
+    fetch("https://wild-camera-zone-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

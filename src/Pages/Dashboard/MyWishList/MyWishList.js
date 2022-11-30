@@ -16,17 +16,20 @@ const MyWishList = () => {
   } = useQuery({
     queryKey: ["wishlist", user.email],
     queryFn: () =>
-      fetch(`http://localhost:5000/wishlist?email=${user.email}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("jwToken")}`,
-        },
-      }).then((res) => res.json()),
+      fetch(
+        `https://wild-camera-zone-server.vercel.app/wishlist?email=${user.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("jwToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   const handelDelete = (id) => {
     const conformation = window.confirm("Want to Delete?");
     if (conformation) {
-      fetch(`http://localhost:5000/wishlist/${id}`, {
+      fetch(`https://wild-camera-zone-server.vercel.app/wishlist/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

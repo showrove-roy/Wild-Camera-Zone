@@ -12,7 +12,7 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["all_buyers"],
     queryFn: () =>
-      fetch("http://localhost:5000/users?role=buyer", {
+      fetch("https://wild-camera-zone-server.vercel.app/users?role=buyer", {
         headers: {
           authorization: `bearer ${localStorage.getItem("jwToken")}`,
         },
@@ -22,7 +22,7 @@ const AllBuyers = () => {
   const handelDelete = (id) => {
     const conformation = window.confirm("Want to Delete?");
     if (conformation) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://wild-camera-zone-server.vercel.app/users/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

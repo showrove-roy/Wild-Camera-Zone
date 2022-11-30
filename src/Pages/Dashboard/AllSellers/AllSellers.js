@@ -12,7 +12,7 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["all_sellers"],
     queryFn: () =>
-      fetch("http://localhost:5000/users?role=seller", {
+      fetch("https://wild-camera-zone-server.vercel.app/users?role=seller", {
         headers: {
           authorization: `bearer ${localStorage.getItem("jwToken")}`,
         },
@@ -20,7 +20,7 @@ const AllSellers = () => {
   });
 
   const handelVerify = (sellerEmail) => {
-    fetch(`http://localhost:5000/users/${sellerEmail}`, {
+    fetch(`https://wild-camera-zone-server.vercel.app/users/${sellerEmail}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -35,7 +35,7 @@ const AllSellers = () => {
   const handelDelete = (id) => {
     const conformation = window.confirm("Want to Delete?");
     if (conformation) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://wild-camera-zone-server.vercel.app/users/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

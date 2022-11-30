@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
 
   // JWT token create
   const createJWT = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://wild-camera-zone-server.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {

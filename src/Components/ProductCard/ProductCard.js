@@ -36,13 +36,16 @@ const ProductCard = ({ product, setSelectProduct }) => {
       seller_email,
       buyerEmail: user.email,
     };
-    fetch(`http://localhost:5000/wishlist?email=${user.email}&pid=${id}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(wish),
-    })
+    fetch(
+      `https://wild-camera-zone-server.vercel.app/wishlist?email=${user.email}&pid=${id}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(wish),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "booked") {
