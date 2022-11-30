@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import BookingModal from "../../../Components/BookingModal/BookingModal";
 import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
@@ -21,6 +22,24 @@ const MyWishList = () => {
         },
       }).then((res) => res.json()),
   });
+
+  const handelDelete = (id) => {
+    const conformation = window.confirm("Want to Delete?");
+    if (conformation) {
+      fetch(`http://localhost:5000/wishlist/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("Delete Successfully");
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
   if (isLoading) return <Loading></Loading>;
   if (wishlists?.message) {
     return <Login>We did not recognize you! Please Login/SignUp</Login>;
@@ -60,7 +79,9 @@ const MyWishList = () => {
                 </label>
               </td>
               <td>
-                <button className='btn btn-square btn-outline btn-error btn-xs'>
+                <button
+                  onClick={() => handelDelete(wish._id)}
+                  className='btn btn-square btn-outline btn-error btn-xs'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-6 w-6'

@@ -11,9 +11,16 @@ const BookingModal = ({ selectProduct, setSelectProduct, refetch }) => {
     handleSubmit,
   } = useForm();
 
+  let productId;
+  if (selectProduct?.product_Id) {
+    productId = selectProduct?.product_Id;
+  } else {
+    productId = selectProduct?._id;
+  }
+
   const handleBooking = (data) => {
     const book = {
-      productId: selectProduct._id,
+      productId,
       productName: selectProduct.product_name,
       productPrice: selectProduct.resell_price,
       productStatues: selectProduct.product_statues,
@@ -23,7 +30,7 @@ const BookingModal = ({ selectProduct, setSelectProduct, refetch }) => {
       buyerEmail: user.email,
     };
     fetch(
-      `http://localhost:5000/booking?email=${user.email}&pid=${selectProduct._id}`,
+      `http://localhost:5000/booking?email=${user.email}&pid=${productId}`,
       {
         method: "POST",
         headers: {

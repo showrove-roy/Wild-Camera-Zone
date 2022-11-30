@@ -29,7 +29,7 @@ const ProductCard = ({ product, setSelectProduct }) => {
   // add wish list handel
   const handelAddWishList = (id) => {
     const wish = {
-      _id: id,
+      product_Id: id,
       product_name,
       resell_price,
       product_statues,
