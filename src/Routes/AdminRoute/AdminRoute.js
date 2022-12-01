@@ -11,9 +11,10 @@ const AdminRoute = ({ children }) => {
 
   if (loading || userLoading) return <Loading></Loading>;
 
-  if (user?.uid && userType?.role === "admin") {
+  if (user.uid && userType.role === "admin") {
     return children;
   }
+  if (!userType.role) return <Loading></Loading>;
   return <Navigate to='/login' state={{ from: location }} replace />;
 };
 

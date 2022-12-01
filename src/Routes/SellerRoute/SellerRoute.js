@@ -14,6 +14,9 @@ const SellerRoute = ({ children }) => {
   if (user?.uid && userType?.role === "seller") {
     return children;
   }
+
+  if (!userType.role) return <Loading></Loading>;
+
   return <Navigate to='/login' state={{ from: location }} replace />;
 };
 export default SellerRoute;

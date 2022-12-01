@@ -25,9 +25,10 @@ const BookingModal = ({ selectProduct, setSelectProduct, refetch }) => {
       productPrice: selectProduct.resell_price,
       productStatues: selectProduct.product_statues,
       meetLocation: data.meet_location,
+      buyerName: user.displayName,
       buyerPhone: data.buyerPhone_number,
-      sellerEmail: selectProduct.seller_email,
       buyerEmail: user.email,
+      sellerEmail: selectProduct.seller_email,
     };
     fetch(
       `https://wild-camera-zone-server.vercel.app/booking?email=${user.email}&pid=${productId}`,

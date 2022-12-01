@@ -29,8 +29,8 @@ const Login = ({ children }) => {
     logIN(data.email, data.password)
       .then(() => {
         createJWT(data.email);
-        reset();
         navigate(from, { replace: true });
+        reset();
       })
       .catch((error) => {
         const errorMessage = error.message.split("/")[1].split(")");

@@ -70,11 +70,11 @@ const MyOrders = () => {
                 <span className='text-red-600 text-2xl'> ৳</span>
               </td>
               <td className='font-semibold text-sm uppercase text-primary'>
-                {order.productStatues}
+                {order?.productStatues}
               </td>
               <td>
                 <Link
-                  disabled={(order.productStatues = "sold")}
+                  disabled={order?.productStatues === "sold"}
                   to={`/dashboard/payment/${order.productId}`}
                   className='btn btn-info btn-xs'>
                   Pay
