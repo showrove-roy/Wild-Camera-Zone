@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { useAuth } from "../../Contexts/AuthProvider";
-import Loading from "../Share/Loading/Loading";
+import { useAuth } from "../../../Contexts/AuthProvider";
+import Loading from "../../Share/Loading/Loading";
 
 const Payment = () => {
   const data = useLoaderData();

@@ -47,6 +47,9 @@ const DashBoardLayout = () => {
                 <li>
                   <Link to='/dashboard/add-product'>Add Product</Link>
                 </li>
+                <li>
+                  <Link to='/dashboard/my-buyers'>My Buyers</Link>
+                </li>
               </>
             )}
             {userType?.role === "admin" && (
