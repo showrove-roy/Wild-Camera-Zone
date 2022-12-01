@@ -8,11 +8,14 @@ const MyBuyers = () => {
   const { user } = useAuth();
   const { isLoading, data: mydata = [] } = useQuery({
     queryKey: ["mybuyers"],
-    queryFn: () => axios.get(`http://localhost:5000/mybuyers/${user.email}`),
+    queryFn: () =>
+      axios.get(
+        `https://wild-camera-zone-server.vercel.app/mybuyers/${user.email}`
+      ),
   });
 
   if (isLoading) return <Loading></Loading>;
-  let mybuyers = mydata.data;
+  let mybuyers = mydata?.data;
 
   return (
     <section>

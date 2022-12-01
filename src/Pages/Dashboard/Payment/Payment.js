@@ -20,9 +20,12 @@ const Payment = () => {
 
   const handlePayment = (data) => {
     setPayLoading(true);
-    fetch(`http://localhost:5000/payment/${product._id}?email=${user.email}`, {
-      method: "PUT",
-    })
+    fetch(
+      `https://wild-camera-zone-server.vercel.app/payment/${product._id}?email=${user.email}`,
+      {
+        method: "PUT",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data?.acknowledged) {
