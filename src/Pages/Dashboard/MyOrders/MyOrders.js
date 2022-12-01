@@ -73,12 +73,18 @@ const MyOrders = () => {
                 {order?.productStatues}
               </td>
               <td>
-                <Link
-                  disabled={order?.productStatues === "sold"}
-                  to={`/dashboard/payment/${order.productId}`}
-                  className='btn btn-info btn-xs'>
-                  Pay
-                </Link>
+                {order?.paidBy === user.email ? (
+                  <span className='text-success font-semibold uppercase'>
+                    Paid
+                  </span>
+                ) : (
+                  <Link
+                    disabled={order?.productStatues === "sold"}
+                    to={`/dashboard/payment/${order.productId}`}
+                    className='btn btn-info btn-xs'>
+                    Pay
+                  </Link>
+                )}
               </td>
               <td>
                 <button

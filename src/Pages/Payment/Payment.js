@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Navigate, useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Contexts/AuthProvider";
+import Loading from "../Share/Loading/Loading";
 
 const Payment = () => {
   const data = useLoaderData();
+  const { user } = useAuth();
   let product = data.data;
-  //   console.log("🚀 ~ file: Payment.js:6 ~ Payment ~ data", product);
+  const [payLoading, setPayLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -15,7 +19,8 @@ const Payment = () => {
   } = useForm();
 
   const handlePayment = (data) => {
-    fetch(`https://wild-camera-zone-server.vercel.app/payment/${product._id}`, {
+    setPayLoading(true);
+    fetch(`http://localhost:5000/payment/${product._id}?email=${user.email}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -23,11 +28,17 @@ const Payment = () => {
         if (data?.acknowledged) {
           toast.success("Payment Successfully Done");
           reset();
-          <Navigate to='/'></Navigate>;
+          setPayLoading(false);
+          navigate("/");
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setPayLoading(false);
+      });
   };
+
+  if (payLoading) return <Loading></Loading>;
 
   return (
     <section>
