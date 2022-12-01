@@ -8,7 +8,6 @@ import { useAuth } from "../../Contexts/AuthProvider";
 const ProductCard = ({ product, setSelectProduct }) => {
   const { user } = useAuth();
   const {
-    category,
     condition,
     location,
     original_price,
@@ -19,8 +18,6 @@ const ProductCard = ({ product, setSelectProduct }) => {
     resell_price,
     seller_email,
     seller_name,
-    seller_phone_num,
-    seller_type,
     upload_time,
     years_of_use,
     _id,

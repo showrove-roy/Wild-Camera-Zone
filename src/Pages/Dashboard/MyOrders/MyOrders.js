@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
 import Login from "../../Sign-IN-UP/Login";
@@ -72,11 +73,17 @@ const MyOrders = () => {
                 {order.productStatues}
               </td>
               <td>
-                <button className='btn btn-info btn-xs'>Pay</button>
+                <Link
+                  disabled={(order.productStatues = "sold")}
+                  to={`/dashboard/payment/${order.productId}`}
+                  className='btn btn-info btn-xs'>
+                  Pay
+                </Link>
               </td>
               <td>
                 <button
                   onClick={() => handelDelete(order._id)}
+                  disabled={order.productStatues === "sold"}
                   className='btn btn-square btn-outline btn-error btn-xs'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

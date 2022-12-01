@@ -102,7 +102,9 @@ const MyProducts = () => {
               <td className='font-semibold text-sm capitalize text-success'>
                 <button
                   onClick={() => handelAD(product._id)}
-                  disabled={product.ad_status}
+                  disabled={
+                    product.ad_status || product.product_statues === "sold"
+                  }
                   className='btn btn-square btn-info btn-xs'>
                   AD
                 </button>
@@ -110,6 +112,7 @@ const MyProducts = () => {
 
               <td>
                 <button
+                  disabled={product.product_statues === "sold"}
                   onClick={() => handelDelete(product._id)}
                   className='btn btn-square btn-outline btn-error btn-xs'>
                   <svg

@@ -1,3 +1,4 @@
+import axios from "axios";
 import DashBoardLayout from "../../Layout/DashBoardLayout";
 import AllProduct from "../../Pages/AllProduct/AllProduct";
 import Blogs from "../../Pages/Blogs/Blogs";
@@ -8,6 +9,7 @@ import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import OneCategories from "../../Pages/Home/ProductCategories/OneCategories";
+import Payment from "../../Pages/Payment/Payment";
 import Err404Page from "../../Pages/Share/Err404Page/Err404Page";
 import ErrorElement from "../../Pages/Share/ErrorElement/ErrorElement";
 import Login from "../../Pages/Sign-IN-UP/Login";
@@ -81,6 +83,18 @@ const router = createBrowserRouter([
           <SellerRoute>
             <AddProduct></AddProduct>
           </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        loader: ({ params }) =>
+          axios.get(
+            `https://wild-camera-zone-server.vercel.app/product/${params.id}`
+          ),
+        element: (
+          <BuyerRoute>
+            <Payment></Payment>
+          </BuyerRoute>
         ),
       },
       {

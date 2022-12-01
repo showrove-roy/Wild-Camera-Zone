@@ -5,11 +5,11 @@ import useUserType from "../../Hooks/useUserType/useUserType";
 import Loading from "../../Pages/Share/Loading/Loading";
 
 const AdminRoute = ({ children }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   let location = useLocation();
   const [userType, userLoading] = useUserType(user.email);
 
-  if (userLoading) return <Loading></Loading>;
+  if (loading || userLoading) return <Loading></Loading>;
 
   if (user?.uid && userType?.role === "admin") {
     return children;

@@ -76,6 +76,7 @@ const MyWishList = () => {
               <td>
                 <label
                   onClick={() => setSelectProduct(wish)}
+                  disable={wish.product_statues === "sold"}
                   htmlFor='booking-modal'
                   className='btn btn-info btn-xs'>
                   Book
