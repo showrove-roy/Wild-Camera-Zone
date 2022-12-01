@@ -13,7 +13,7 @@ const MyProducts = () => {
     data: products = [],
     refetch,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["myproducts"],
     queryFn: () =>
       fetch(
         `https://wild-camera-zone-server.vercel.app/product?email=${user.email}`,
