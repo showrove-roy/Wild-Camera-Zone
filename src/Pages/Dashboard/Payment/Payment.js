@@ -1,24 +1,19 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useAuth } from "../../../Contexts/AuthProvider";
-import Loading from "../../Share/Loading/Loading";
+import PaymentCard from "./PaymentCard";
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const Payment = () => {
   const data = useLoaderData();
   const { user } = useAuth();
   let product = data.data;
   const [payLoading, setPayLoading] = useState(false);
-  const navigate = useNavigate();
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
 
-  const handlePayment = (data) => {
+  const handlePayment = () => {
     setPayLoading(true);
     fetch(
       `https://wild-camera-zone-server.vercel.app/payment/${product._id}?email=${user.email}`,
@@ -30,9 +25,7 @@ const Payment = () => {
       .then((data) => {
         if (data?.acknowledged) {
           toast.success("Payment Successfully Done");
-          reset();
           setPayLoading(false);
-          navigate("/");
         }
       })
       .catch((err) => console.error(err))
@@ -40,8 +33,6 @@ const Payment = () => {
         setPayLoading(false);
       });
   };
-
-  if (payLoading) return <Loading></Loading>;
 
   return (
     <section>
@@ -51,84 +42,13 @@ const Payment = () => {
         Price: {product.resell_price}
         <span className='text-red-600 text-4xl'> ৳</span>
       </h2>
-      <div className='max-w-md mx-auto my-10'>
-        <form onSubmit={handleSubmit(handlePayment)} className='card-body pt-1'>
-          <h2 className='text-xl text-center'>Please Provide Payment Info</h2>
-          <div className='form-control'>
-            <label className='label'>
-              <span className='label-text'>Card Number</span>
-            </label>
-            <input
-              type='number'
-              className='input input-bordered'
-              {...register("cardNumber", {
-                required: "Card Number is required",
-              })}
-            />
-            {errors.cardNumber && (
-              <p className='text-error mt-1' role='alert'>
-                {errors.cardNumber?.message}
-              </p>
-            )}
-          </div>
-          <div className='form-control'>
-            <label className='label'>
-              <span className='label-text'>Cardholder's Name</span>
-            </label>
-            <input
-              type='text'
-              className='input input-bordered'
-              {...register("cardholderName", {
-                required: "Cardholder's Name is required",
-              })}
-            />
-            {errors.cardholderName && (
-              <p className='text-error mt-1' role='alert'>
-                {errors.cardholderName?.message}
-              </p>
-            )}
-          </div>
-          <div className='flex gap-2 sm:flex-nowrap flex-wrap'>
-            <div className='form-control'>
-              <label className='label'>
-                <span className='label-text'>Expiration</span>
-              </label>
-              <input
-                type='date'
-                className='input input-bordered'
-                {...register("expiration", {
-                  required: "Expiration Date is required",
-                })}
-              />
-              {errors.expiration && (
-                <p className='text-error mt-1' role='alert'>
-                  {errors.expiration?.message}
-                </p>
-              )}
-            </div>
-            <div className='form-control'>
-              <label className='label'>
-                <span className='label-text'>CVV</span>
-              </label>
-              <input
-                type='number'
-                className='input input-bordered'
-                {...register("cvvNum", {
-                  required: "CVV Number is required",
-                })}
-              />
-              {errors.cvvNum && (
-                <p className='text-error mt-1' role='alert'>
-                  {errors.cvvNum?.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className='form-control mt-2'>
-            <input className='btn btn-accent' type='submit' value='Pay' />
-          </div>
-        </form>
+      <div className='max-w-sm my-10 mx-auto'>
+        <Elements stripe={stripePromise}>
+          <PaymentCard
+            product={product}
+            handlePayment={handlePayment}
+            payLoading={payLoading}></PaymentCard>
+        </Elements>
       </div>
     </section>
   );

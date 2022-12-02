@@ -46,14 +46,19 @@ const BookingModal = ({ selectProduct, setSelectProduct, refetch }) => {
           toast.error(" Already You Have Booked this Product", {
             duration: 5000,
           });
+          setSelectProduct(null);
+          return;
         }
         if (data.acknowledged) {
           toast.success(" Successfully You Have Booked this Product", {
             duration: 4000,
           });
-          refetch();
+          if (refetch) {
+            refetch();
+          }
+          setSelectProduct(null);
+          return;
         }
-        setSelectProduct(null);
       })
       .catch((err) => console.error(err));
   };

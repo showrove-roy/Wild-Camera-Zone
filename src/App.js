@@ -6,7 +6,11 @@ function App() {
   return (
     <div className='max-w-[1400px] mx-auto'>
       <RouterProvider router={router}></RouterProvider>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
     </div>
   );
 }
