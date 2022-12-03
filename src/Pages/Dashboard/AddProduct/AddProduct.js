@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Contexts/AuthProvider";
 import Loading from "../../Share/Loading/Loading";
 
@@ -8,6 +9,7 @@ const AddProduct = () => {
   const [uploadErr, setUploadErr] = useState();
   const imgBBkey = process.env.REACT_APP_ImaBB_Key;
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -70,6 +72,7 @@ const AddProduct = () => {
         if (data.acknowledged) {
           toast.success("Added Done");
           reset();
+          navigate("/dashboard/my-products");
         }
       })
       .catch((err) => console.error(err))

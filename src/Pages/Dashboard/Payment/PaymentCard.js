@@ -48,7 +48,7 @@ const PaymentCard = ({ product, handlePayment, payLoading }) => {
       return;
     }
     // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
