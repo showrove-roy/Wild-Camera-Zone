@@ -2,7 +2,9 @@
 
 Live Link [WCZ](https://a-12-wild-camera-zone.web.app/)
 
-## What am I using for this project?
+Server Code [GO](https://github.com/showrove-roy/wild-camera-zone-server.git)
+
+## The Key Technologies Used in this Project
 
 ### For client side
 
@@ -26,3 +28,8 @@ Live Link [WCZ](https://a-12-wild-camera-zone.web.app/)
 
 - adminEmail: web@hp.com
 - adminPassword: Qwe12#
+
+**Seller AC info:**
+
+- sellerEmail: websell@gmail.com
+- sellerPassword: Qwe12#
